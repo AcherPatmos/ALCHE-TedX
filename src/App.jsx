@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import config from "../config.js";
 
+// Prefix public-folder paths with the site's base path (e.g. /ALCHE-TedX/ on GitHub Pages).
+const asset = (path) => import.meta.env.BASE_URL + path.replace(/^\//, "");
+
 function prefersReducedMotion() {
   return (
     typeof window !== "undefined" &&
@@ -102,7 +105,7 @@ function Navigation() {
     <header className="site-header">
       <div className="site-header__bar shell">
         <a className="brand" href="#home" onClick={() => setOpen(false)}>
-          <img src="/images/logos/logo.full.png" alt={config.title} />
+          <img src={asset("/images/logos/logo.full.png")} alt={config.title} />
         </a>
         <button
           className="menu-toggle"
@@ -145,7 +148,7 @@ function Hero() {
     <section id="home" className="hero">
 
       <div className="hero__media" aria-hidden="true">
-        <img src="/images/backgrounds/hero-section-background.png" alt="a person on a speaker stand" />
+        <img src={asset("/images/backgrounds/hero-section-background.png")} alt="a person on a speaker stand" />
       </div>
 
       <div className="hero__inner shell">
@@ -232,7 +235,7 @@ function StackSection({ id, title, intro, cards = [], note }) {
 
             {card.image ? (
               <div className="stack__media">
-                <img src={card.image} alt={card.imageAlt ?? ""} />
+                <img src={asset(card.image)} alt={card.imageAlt ?? ""} />
               </div>
             ) : null}
           </article>
@@ -256,7 +259,7 @@ function PeopleSection({ id, eyebrow, title, intro, people, centered = false }) 
         {people.map((person) => (
           <article key={person.name} className="person-card">
             <div className="person-card__media">
-              <img src={person.profileImage} alt={person.name} />
+              <img src={asset(person.profileImage)} alt={person.name} />
             </div>
             <div className="person-card__body">
               <h3>{person.name}</h3>
@@ -286,7 +289,7 @@ function Footer() {
       <div className="shell site-footer__grid">
         <div>
           <img
-            src="/images/logos/logo.full.png"
+            src={asset("/images/logos/logo.full.png")}
             alt={config.title}
             className="footer-logo"
           />
